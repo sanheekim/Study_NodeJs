@@ -1,0 +1,1 @@
+console.log(1); // 터미널에서 node syntax\number.js라고 치면 실행 잘 됨
