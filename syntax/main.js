@@ -73,6 +73,18 @@ var app = http.createServer(function(request,response){
         response.writeHead(200);
         response.end(template);
       });
+    } else if(pathname === '/create_process'){ // POST 방식으로 전송된 데이터 받기
+      var body = '';
+      request.on('data', function(data){
+          body = body + data; // body 데이터에 callback이 실행될 때마다 data를 추가해줌
+      });
+      request.on('end', function(){
+          var post = qs.parse(body);
+          var title = post.title;
+          var description = post.description
+      });
+      response.writeHead(200);
+      response.end('success');
     } else {
       response.writeHead(404);
       response.end('Not found');
