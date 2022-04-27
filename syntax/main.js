@@ -54,7 +54,12 @@ var app = http.createServer(function(request,response){
             var list = templateList(filelist);
             var template = templateHTML(title, list,
               `<h2>${title}</h2>${description}`,
-              `<a href="/create">create</a> <a href="/update?id=${title}">update</a>` // 수정 링크 생성
+              ` <a href="/create">create</a>
+                <a href="/update?id=${title}">update</a> //수정 링크 생성
+                <form action="delete_process" method="post"> // 삭제 버튼 생성
+                  <input type="hidden" name="id" value="${title}">
+                  <input type="submit" value="delete">
+                </form>`
             );
             response.writeHead(200);
             response.end(template);
