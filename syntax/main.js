@@ -139,9 +139,22 @@ var app = http.createServer(function(request,response){
             })
           });
       });
-} else {
-  response.writeHead(404);
-  response.end('Not found');
-}
+    } else if(pathname === '/delete_process'){ // 글 삭제 기능
+      var body = '';
+      request.on('data', function(data){
+          body = body + data;
+      });
+      request.on('end', function(){
+          var post = qs.parse(body);
+          var id = post.id;
+          fs.unlink(`data/${id}`, function(error){
+            response.writeHead(302, {Location: `/`});
+            response.end();
+          })
+      });
+  } else {
+    response.writeHead(404);
+    response.end('Not found');
+  }
 });
 app.listen(3000);
